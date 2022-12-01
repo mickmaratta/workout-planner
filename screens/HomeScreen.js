@@ -58,17 +58,17 @@ const HomeScreen = ({ navigation }) => {
         <View className="items-center justify-center m-3">
           <Text className="text-4xl text-slate-600  font-bold">Workouts</Text>
           <Text className="text-sm italic text-gray-500">
-            Hey {currentUser.displayName}
+            Welcome back {currentUser.displayName}
           </Text>
         </View>
 
         {/* SEARCH */}
-        <View className="flex-row items-center space-x-2 pb-2 mx-4 mb-2">
+        {/* <View className="flex-row items-center space-x-2 pb-2 mx-4 mb-2">
           <View className="flex-row space-x-2 flex-1 bg-slate-200 p-3 rounded-md">
             <MagnifyingGlassIcon color="gray" size={20} />
             <TextInput placeholder="Workouts..." keyboardType="default" />
           </View>
-        </View>
+        </View> */}
       </View>
 
       {/* BODY */}
