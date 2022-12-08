@@ -20,6 +20,7 @@ const DismissKeyboard = ({ children }) => (
 
 const EditExerciseScreen = ({ route, navigation }) => {
   const { setExercises, exercises, exercise } = route.params;
+
   const [sets, setSets] = useState(exercise.sets);
   const [title, setTitle] = useState(exercise.title);
 
@@ -34,10 +35,23 @@ const EditExerciseScreen = ({ route, navigation }) => {
   };
 
   const handleReps = (set, reps) => {
-    sets[set - 1].reps = reps;
+    const newSets = [...sets];
+    newSets[set - 1] = {
+      number: newSets[set - 1].number,
+      weight: newSets[set - 1].weight,
+      reps: reps,
+    };
+    setSets(newSets);
   };
+
   const handleWeight = (set, weight) => {
-    sets[set - 1].weight = weight;
+    const newSets = [...sets];
+    newSets[set - 1] = {
+      number: newSets[set - 1].number,
+      weight: weight,
+      reps: newSets[set - 1].reps,
+    };
+    setSets(newSets);
   };
 
   const updateExercise = () => {
@@ -51,6 +65,9 @@ const EditExerciseScreen = ({ route, navigation }) => {
     navigation.goBack();
   };
 
+  useEffect(() => {
+    console.log(sets);
+  }, [exercise, title, sets]);
   return (
     <DismissKeyboard>
       <View className="flex-1">
