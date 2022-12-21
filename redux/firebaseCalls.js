@@ -1,11 +1,9 @@
 import {
     arrayRemove,
     arrayUnion,
-    collection,
     deleteDoc,
     doc,
     getDoc,
-    query,
     setDoc,
     updateDoc,
   } from "firebase/firestore";

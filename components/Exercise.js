@@ -1,13 +1,10 @@
-import { View, Text, TouchableOpacity, TextInput, Pressable } from "react-native";
+import { View, Text, TouchableOpacity } from "react-native";
 import React from "react";
 import {
   MinusCircleIcon,
   PencilSquareIcon,
-  PlusCircleIcon,
-  PlusIcon,
 } from "react-native-heroicons/solid";
 import Set from "./Set";
-import AddSet from "./AddSet";
 import { useNavigation } from "@react-navigation/native";
 
 const Exercise = ({ exercise, deleteExercise, setExercises, exercises }) => {
