@@ -20,7 +20,8 @@ export const workoutSlice = createSlice({
     //GET ALL
     getWorkoutsSuccess: (state, action) => {
       state.isFetching = false;
-      state.workouts = action.payload;
+      state.workouts = action.payload.workouts;
+      state.completedWorkouts = action.payload.completedWorkouts;
     },
 
     //ADD WORKOUT

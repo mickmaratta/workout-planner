@@ -32,7 +32,7 @@ import {
     try {
       const docRef = doc(db, "users", uid);
       const docSnap = await getDoc(docRef);
-      dispatch(getWorkoutsSuccess(docSnap.data().workouts));
+      dispatch(getWorkoutsSuccess(docSnap.data()));
     } catch (error) {
       console.log(error);
       dispatch(workoutFailure());

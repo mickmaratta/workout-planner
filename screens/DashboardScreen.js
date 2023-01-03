@@ -3,8 +3,24 @@ import React from "react";
 import { LinearGradient } from "react-native-svg";
 import { ArrowLeftOnRectangleIcon, PencilSquareIcon } from "react-native-heroicons/outline";
 import { ArrowLeftCircleIcon } from "react-native-heroicons/solid";
+import { useSelector } from "react-redux";
+import { useState } from "react";
+import { useEffect } from "react";
 
 const DashboardScreen = ({navigation}) => {
+  const completedWorkouts = useSelector((state) => state.workout.completedWorkouts);
+  const [longestWorkout, setLongestWorkout] = useState(0)
+
+  useEffect(() => {
+    for(let i=0; i<completedWorkouts.length; i++) {
+      let time = (completedWorkouts[i].workoutLength.minutes*60) + (completedWorkouts[i].workoutLength.seconds)
+      if (time > longestWorkout) {
+        setLongestWorkout(time)
+      }
+      i++;
+    }
+  }, [completedWorkouts]);
+
   return (
     <SafeAreaView className="bg-sky-50 flex-1 w-full">
       <View className="items-center justify-center relative mb-3">
@@ -21,15 +37,15 @@ const DashboardScreen = ({navigation}) => {
         </Text>
       </View>
       <View className="bg-white flex-1 pb-3 items-center">
-        <Text className="text-3xl mt-5 text-center font-bold text-slate-700">Your Stats</Text>
+        <Text className="text-3xl my-5 text-center font-bold text-slate-700">Your Stats</Text>
         <View className="items-center mb-26 mb-32 justify-evenly w-[85%] flex-1">
           <View className="bg-sky-200 w-full h-28 rounded-md items-center justify-center my-3">
             <Text className="text-2xl font-bold text-slate-700">Number of Workouts:</Text>
-            <Text className="text-xl">10</Text>
+            <Text className="text-xl">{completedWorkouts.length}</Text>
           </View>
           <View className="bg-blue-200 w-full h-28 rounded-md items-center justify-center my-3">
             <Text className="text-2xl font-bold text-slate-700">Longest Workout:</Text>
-            <Text className="text-xl">29:46</Text>
+            <Text className="text-xl">{(longestWorkout - longestWorkout%60) / 60}:{`${longestWorkout%60 > 9 ? longestWorkout%60 : `0${longestWorkout%60}`}`}</Text>
           </View>
           <View className="bg-indigo-200 w-full h-28 rounded-md items-center justify-center my-3">
             <Text className="text-2xl font-bold text-slate-700">Average Workout:</Text>

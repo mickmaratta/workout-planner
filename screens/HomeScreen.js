@@ -51,6 +51,7 @@ const HomeScreen = ({ navigation }) => {
     }
   }, [all, workouts, favoriteWorkouts]);
 
+  
   return (
     <SafeAreaView className="bg-sky-50 flex-1">
       <View className="bg-sky-50">
