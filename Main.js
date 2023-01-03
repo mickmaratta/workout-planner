@@ -13,6 +13,7 @@ import TrackWorkoutScreen from "./screens/TrackWorkoutScreen";
 import EditWorkoutScreen from "./screens/EditWorkoutScreen";
 import EditExerciseScreen from "./screens/EditExerciseScreen";
 import LoginScreen from "./screens/LoginScreen";
+import DashboardScreen from "./screens/DashboardScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -70,6 +71,11 @@ export default function Main() {
             <Stack.Screen
               name="Track_Workout"
               component={TrackWorkoutScreen}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="Dashboard"
+              component={DashboardScreen}
               options={{ headerShown: false }}
             />
           </>

@@ -40,7 +40,7 @@ const HomeScreen = ({ navigation }) => {
 
   useEffect(() => {
     getWorkouts(dispatch, currentUser.uid);
-    getFavorites(dispatch, currentUser.uid)
+    getFavorites(dispatch, currentUser.uid);
   }, []);
 
   useEffect(() => {
@@ -51,11 +51,18 @@ const HomeScreen = ({ navigation }) => {
     }
   }, [all, workouts, favoriteWorkouts]);
 
-
   return (
     <SafeAreaView className="bg-sky-50 flex-1">
       <View className="bg-sky-50">
         <View className="items-center justify-center m-3">
+          <TouchableOpacity
+            onPress={() => navigation.navigate("Dashboard")}
+            className="absolute top-0 right-3 bg-white rounded-full h-10 w-10 items-center justify-center border border-sky-700"
+          >
+            <Text className="text-2xl text-sky-700">
+              {currentUser.displayName.split("")[0]}
+            </Text>
+          </TouchableOpacity>
           <Text className="text-4xl text-slate-600  font-bold">Workouts</Text>
           <Text className="text-sm italic text-gray-500">
             Welcome back {currentUser.displayName}
@@ -95,7 +102,9 @@ const HomeScreen = ({ navigation }) => {
         <TouchableOpacity onPress={() => signOut(auth)}>
           <ArrowLeftOnRectangleIcon color="skyblue" size={25} />
         </TouchableOpacity>
-        <Text className="text-gray-500">{filteredWorkouts.length} Workouts</Text>
+        <Text className="text-gray-500">
+          {filteredWorkouts.length} Workouts
+        </Text>
         <TouchableOpacity onPress={() => navigation.navigate("Add")}>
           <PencilSquareIcon color="skyblue" size={25} />
         </TouchableOpacity>
