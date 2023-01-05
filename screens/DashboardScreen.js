@@ -20,10 +20,14 @@ const DashboardScreen = ({navigation}) => {
       }
       i++;
     };
-    setAverageWorkout(completedWorkouts.reduce((a, b) => (((a.workoutLength.minutes*60)+a.workoutLength.seconds)) + ((b.workoutLength.minutes*60)+b.workoutLength.seconds)))
+
+    let average = completedWorkouts.reduce(function(acc, curValue) {
+      return acc + (curValue.workoutLength.minutes*60 + curValue.workoutLength.seconds)
+    }, 0);
+
+    setAverageWorkout((average/completedWorkouts.length).toFixed(0));
   }, [completedWorkouts]);
 
-  console.log(averageWorkout);
 
   return (
     <SafeAreaView className="bg-sky-50 flex-1 w-full">
@@ -53,7 +57,7 @@ const DashboardScreen = ({navigation}) => {
           </View>
           <View className="bg-indigo-200 w-full h-28 rounded-md items-center justify-center my-3">
             <Text className="text-2xl font-bold text-slate-700">Average Workout:</Text>
-            <Text className="text-xl">20:33</Text>
+            <Text className="text-xl">{(averageWorkout - averageWorkout%60) / 60}:{`${averageWorkout%60 > 9 ? averageWorkout%60 : `0${averageWorkout%60}`}`}</Text>
           </View>
         </View>
       </View>
