@@ -10,6 +10,7 @@ import { useEffect } from "react";
 const DashboardScreen = ({navigation}) => {
   const completedWorkouts = useSelector((state) => state.workout.completedWorkouts);
   const [longestWorkout, setLongestWorkout] = useState(0)
+  const [averageWorkout, setAverageWorkout] = useState(0)
 
   useEffect(() => {
     for(let i=0; i<completedWorkouts.length; i++) {
@@ -18,8 +19,11 @@ const DashboardScreen = ({navigation}) => {
         setLongestWorkout(time)
       }
       i++;
-    }
+    };
+    setAverageWorkout(completedWorkouts.reduce((a, b) => (((a.workoutLength.minutes*60)+a.workoutLength.seconds)) + ((b.workoutLength.minutes*60)+b.workoutLength.seconds)))
   }, [completedWorkouts]);
+
+  console.log(averageWorkout);
 
   return (
     <SafeAreaView className="bg-sky-50 flex-1 w-full">
