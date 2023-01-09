@@ -25,6 +25,10 @@ import { doc, getDoc } from "firebase/firestore";
 import WorkoutLabel from "../components/WorkoutLabel";
 import { getFavorites, getWorkouts } from "../redux/firebaseCalls";
 import { useDispatch, useSelector } from "react-redux";
+import DraggableFlatList, {
+  ScaleDecorator,
+  RenderItemParams,
+} from "react-native-draggable-flatlist";
 
 const HomeScreen = ({ navigation }) => {
   const switchOptions = [
@@ -51,6 +55,13 @@ const HomeScreen = ({ navigation }) => {
     }
   }, [all, workouts, favoriteWorkouts]);
 
+  const renderItem = ({ workout, drag, isActive }: RenderItemParams<Item>) => {
+    return (
+      <ScaleDecorator>
+        <WorkoutLabel drag={drag} workout={filteredWorkouts} />
+      </ScaleDecorator>
+    )
+  };
   
   return (
     <SafeAreaView className="bg-sky-50 flex-1">
@@ -92,11 +103,16 @@ const HomeScreen = ({ navigation }) => {
         />
       </View>
 
-      <ScrollView className="bg-white">
+      <View className="bg-white">
         {filteredWorkouts.map((workout) => (
-          <WorkoutLabel key={workout._id} workout={workout} all={all} />
+          <DraggableFlatList 
+          data={filteredWorkouts}
+          onDragEnd={ (filteredWorkouts) => setFilteredWorkouts(filteredWorkouts) }
+          keyExtractor={(filteredWorkouts) => filteredWorkouts._id}
+          renderItem={renderItem}
+          />
         ))}
-      </ScrollView>
+      </View>
 
       {/* FOOTER */}
       <View className="h-16 bg-sky-50 relative items-center justify-between flex-row px-4">
